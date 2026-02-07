@@ -1,0 +1,37 @@
+#include "pitches.h"
+#include "pitch_range.h"
+
+const uint32_t preset_pitches[NUM_PITCHES_IN_RANGE] =
+{
+    PITCH_PERIOD(A2),
+    PITCH_PERIOD(Bb2),
+    PITCH_PERIOD(B2),
+    PITCH_PERIOD(C3),
+    PITCH_PERIOD(Db3),
+    PITCH_PERIOD(D3),
+    PITCH_PERIOD(Eb3),
+    PITCH_PERIOD(E3),
+    PITCH_PERIOD(F3),
+    PITCH_PERIOD(Gb3),
+    PITCH_PERIOD(G3),
+    PITCH_PERIOD(Ab3),
+    PITCH_PERIOD(A3),
+    PITCH_PERIOD(Bb3),
+    PITCH_PERIOD(B3),
+    PITCH_PERIOD(C4),
+    PITCH_PERIOD(Db4),
+    PITCH_PERIOD(D4),
+    PITCH_PERIOD(Eb4),
+    PITCH_PERIOD(E4),
+    PITCH_PERIOD(F4),
+    PITCH_PERIOD(Gb4),
+    PITCH_PERIOD(G4),
+    PITCH_PERIOD(Ab4),
+    PITCH_PERIOD(A4),
+    PITCH_PERIOD(Bb4),
+    PITCH_PERIOD(B4),
+    PITCH_PERIOD(C5),
+    PITCH_PERIOD(Db5),
+    PITCH_PERIOD(D5),
+    PITCH_PERIOD(Eb5),
+};

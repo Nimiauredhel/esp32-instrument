@@ -1,2 +1,2 @@
-idf_component_register(SRCS "instrument.c"
-                    INCLUDE_DIRS ".")
+idf_component_register(SRC_DIRS "." "audio" "input"
+                    INCLUDE_DIRS "." "audio" "input")
