@@ -2,7 +2,7 @@
 #define PITCH_RANGE_H
 
 #define NUM_PITCHES_IN_RANGE (31)
-#define MIDDLE_PITCH_IDX (16)
+#define MIDDLE_PITCH_IDX (15)
 
 #include <stdint.h>
 

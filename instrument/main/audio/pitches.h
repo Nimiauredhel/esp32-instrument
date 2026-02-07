@@ -12,10 +12,10 @@
 #include "soc/soc.h"
 
 // assuming base clock frequency is that of the clock source
-#define TCLOCK_HZ REF_CLK_FREQ 
+#define TCLOCK_HZ (APB_CLK_FREQ) 
 
 // determining the divider required to achieve a target frequency from the base
-#define PITCH_PERIOD(pitch_hz) (uint32_t)((TCLOCK_HZ) / (float)(pitch_hz))
+#define PITCH_PERIOD(pitch_hz) (uint32_t)((double)TCLOCK_HZ / (double)(pitch_hz))
 
 // hz values of note pitches
 #define C0 PITCH_PERIOD(16.35)

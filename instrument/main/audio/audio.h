@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-#define AUDIO_PWM_PIN (22)
-#define AUDIO_GND_PIN (21)
+#define AUDIO_PWM_PIN (23)
+#define AUDIO_GND_PIN (-1)
 
 void audio_init(void);
 void set_audio(uint32_t pitch_period, float duty_percent);

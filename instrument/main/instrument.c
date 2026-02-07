@@ -4,7 +4,8 @@
 #include "audio.h"
 #include "input.h"
 #include "pitch_range.h"
-#include "esp_task_wdt.h"
+#include "pitches.h"
+#include <math.h>
 
 #define TASK_STACK_SIZE 4096
 
@@ -14,15 +15,19 @@ static StackType_t main_task_stack[TASK_STACK_SIZE];
 
 void main_task(void *arg)
 {
+    uint8_t prev_input_state = 0x00;
     audio_init();
     input_init();
-
-    stop_audio();
 
     for(;;)
     {
         vTaskDelay(pdMS_TO_TICKS(1));
-        uint8_t input_state = input_get_state();
+        const uint8_t input_state = input_get_state();
+        if(input_state == prev_input_state) continue;
+        prev_input_state = input_state;
+
+        //printf("INPUT %u\n", input_state);
+        //vTaskDelay(pdMS_TO_TICKS(10));
 
         if (input_state == 0x00)
         {
@@ -30,26 +35,14 @@ void main_task(void *arg)
         }
         else
         {
-            int8_t pitch_modifier = 0;
-            uint8_t step = 1;
+            int pitch_modifier = (input_state >> 1U) * ((input_state & 1U) ? -1 : 1);
 
-            for (uint8_t i = 1; i < INPUT_GPIO_COUNT; i++)
-            {
-                if (input_state & (1U << i))
-                {
-                    pitch_modifier += step;
-                }
+            printf("MODIFIER %d\n", pitch_modifier);
 
-                step *= 2;
-            }
-
-            if (input_state & 1U)
-            {
-                pitch_modifier *= -1;
-            }
-
-            uint8_t pitch_index = MIDDLE_PITCH_IDX + pitch_modifier;
-            set_audio(preset_pitches[pitch_index], 0.2f);
+            int pitch_index = MIDDLE_PITCH_IDX + pitch_modifier;
+            if (pitch_index < 0) pitch_index = 0;
+            else if (pitch_index > NUM_PITCHES_IN_RANGE) pitch_index = NUM_PITCHES_IN_RANGE;
+            set_audio(preset_pitches[pitch_index], 0.5f);
         }
     }
 }
