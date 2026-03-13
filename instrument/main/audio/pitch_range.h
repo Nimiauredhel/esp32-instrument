@@ -6,6 +6,6 @@
 
 #include <stdint.h>
 
-extern const uint32_t preset_pitches[NUM_PITCHES_IN_RANGE];
+extern const uint32_t preset_periods[NUM_PITCHES_IN_RANGE];
 
 #endif

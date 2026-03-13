@@ -11,9 +11,9 @@ static const ledc_timer_config_t audio_timer_config =
 {
     .speed_mode = LEDC_LOW_SPEED_MODE,
     .timer_num = LEDC_TIMER_0,
-    .freq_hz = 440,
-    .duty_resolution = LEDC_TIMER_8_BIT,
-    .clk_cfg = LEDC_USE_REF_TICK,
+    .freq_hz = 3520,
+    .duty_resolution = LEDC_TIMER_12_BIT,
+    .clk_cfg = LEDC_USE_APB_CLK,
 };
 
 static const ledc_channel_config_t audio_channel_config =
@@ -41,15 +41,15 @@ void audio_init(void)
 
 void set_audio(uint32_t pitch_period, float duty_percent)
 {
-    uint32_t duty_resolution = 8;
-    uint32_t duty_max = 255;
+    uint32_t duty_resolution = 12;
+    uint32_t duty_max = 4095;
 
     if (duty_percent > 0.0f)
     {
         ESP_ERROR_CHECK(ledc_timer_set(LEDC_LOW_SPEED_MODE, LEDC_TIMER_0, pitch_period, duty_resolution, LEDC_APB_CLK));
     }
 
-    ESP_ERROR_CHECK(ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty_max * duty_percent));
+    ESP_ERROR_CHECK(ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, (uint32_t)(duty_max * duty_percent)));
     ESP_ERROR_CHECK(ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0));
 }
 

@@ -21,13 +21,12 @@ void main_task(void *arg)
 
     for(;;)
     {
-        vTaskDelay(pdMS_TO_TICKS(1));
+        vTaskDelay(pdMS_TO_TICKS(10));
         const uint8_t input_state = input_get_state();
         if(input_state == prev_input_state) continue;
         prev_input_state = input_state;
 
         //printf("INPUT %u\n", input_state);
-        //vTaskDelay(pdMS_TO_TICKS(10));
 
         if (input_state == 0x00)
         {
@@ -39,10 +38,15 @@ void main_task(void *arg)
 
             printf("MODIFIER %d\n", pitch_modifier);
 
+            /*
             int pitch_index = MIDDLE_PITCH_IDX + pitch_modifier;
             if (pitch_index < 0) pitch_index = 0;
             else if (pitch_index > NUM_PITCHES_IN_RANGE) pitch_index = NUM_PITCHES_IN_RANGE;
-            set_audio(preset_pitches[pitch_index], 0.5f);
+            set_audio(preset_periods[pitch_index], 0.75f);
+            */
+            double target_pitch = 3520.0 * pow(1.0595, (double)pitch_modifier);
+            uint32_t target_div = PITCH_PERIOD(target_pitch);
+            set_audio(target_div, 0.75f);
         }
     }
 }

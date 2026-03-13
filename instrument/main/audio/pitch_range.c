@@ -1,7 +1,7 @@
 #include "pitches.h"
 #include "pitch_range.h"
 
-const uint32_t preset_pitches[NUM_PITCHES_IN_RANGE] =
+const uint32_t preset_periods[NUM_PITCHES_IN_RANGE] =
 {
     PITCH_PERIOD(A0),
     PITCH_PERIOD(Bb0),
